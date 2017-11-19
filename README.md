@@ -3,6 +3,7 @@
 	ONE. where we are now
 
 1.tree/markshi
+
 We are trying to build an app that basically helps users to find out the exact name and address of a given picture, it can also show you the current activities happening in this building or useful resources like printers or bathrooms around. 
 The picture can be either what you find in your friends' twitter, facebook or other social networks, or the one you took from when you are passing by a beautiful and memorable building that you really want to know what its name is or what's going on inside of this building.
 For now, we can realize almost all the basic functions in our android app now, involving Auth, Database, Storage, Analytics, etc. using Firebase.
@@ -11,6 +12,7 @@ For now, we can realize almost all the basic functions in our android app now, i
   3)Upload function. When you press the "Choosing pictures" button in the middle, it firstly opens photo galary in your local position. After choosing one, and press "ok", it will be uploaded to the Firebase storage, then automatically giving back the actual url of the picture and update it into our database.  
 
 2.tree/recognition
+
 We also finished the training part of our recognition module, and did several tests, which behaved exactly as we expect, and matched exactly the correct building it should be. 
 
 	TWO. demo
@@ -32,13 +34,19 @@ https://youtu.be/WPbxhzRGw3E
 Description is as above.
 
 
-Three. Challenges
+	Three. Challenges
 
-The first one is that the size of our training set is still too small, so the precision of recognition is not high enough. The difficulty is to how to get enough pictures.
-Second, for the building information part of database, we need to enrich the information of our existing buildings. We now have the building name, address, resources, and activities. We may want to add more properties for each building.
-Third, allow users to add events to a given building. For example, a career fair or a costume party.
-Fourth, if the picture that user uploads don't match any of the buildings in the database, we may allow user to create new building into our database.
-And for the 5 test recognition, when the number of the image is over 30, the module crashed. We are still trying to ﬁgure out what’s going on inside.
-And another challenge is that we need to connect the recognition module into our system.
-Last, the picture that users upload should be used to enrich our training set for recognition module. But only if the numbers of newly uploaded pictures reach a given number, or a given percentage of all pictures in the training set. This is avoid doing too much repetitive job every time when a picture being uploaded.
+1.The size of our training set is still too small, so the precision of recognition is not high enough. The difficulty is to how to get enough pictures.
+
+2.For the building information part of database, we need to enrich the information of our existing buildings. We now have the building name, address, resources, and activities. We may want to add more properties for each building.
+
+3.Allow users to add events to a given building. For example, a career fair or a costume party.
+
+4.If the picture that user uploads don't match any of the buildings in the database, we may allow user to create new building into our database.
+
+5.For the 5 test recognition, when the number of the image is over 30, the module crashed. We are still trying to ﬁgure out what’s going on inside.
+
+6.we need to connect the recognition module into our system.
+
+7.The picture that users upload should be used to enrich our training set for recognition module. But only if the numbers of newly uploaded pictures reach a given number, or a given percentage of all pictures in the training set. This is avoid doing too much repetitive job every time when a picture being uploaded.
 
