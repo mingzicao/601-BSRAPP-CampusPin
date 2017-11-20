@@ -35,6 +35,7 @@ And for the total test set, it needs about 40 minutes to accomplish. And in the 
 https://youtu.be/mnh9CaRLNgk
 
 https://youtu.be/WPbxhzRGw3E
+
 Description is as above.
 
 
@@ -50,7 +51,7 @@ Description is as above.
 
 5.For the 5 test recognition, when the number of the image is over 30, the module crashed. We are still trying to ﬁgure out what’s going on inside.
 
-6.we need to connect the recognition module into our system.
+6.We need to connect the recognition module into our system.
 
 7.The picture that users upload should be used to enrich our training set for recognition module. But only if the numbers of newly uploaded pictures reach a given number, or a given percentage of all pictures in the training set. This is avoid doing too much repetitive job every time when a picture being uploaded.
 
