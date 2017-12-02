@@ -72,7 +72,7 @@
         android:layout_width="0dp"
         android:layout_height="53dp"
         android:layout_marginTop="16dp"
-        android:onClick="openSignIn"
+        android:onClick="openSignInActivity"
         android:text="@string/button_signIn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
