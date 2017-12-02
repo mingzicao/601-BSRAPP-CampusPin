@@ -1,4 +1,3 @@
-# 601-BSRAPP-CampusPin
 # Accomplishments
 # Android App
 
