@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "693144319042",
+    "firebase_url": "https://campuspin-5d264.firebaseio.com",
+    "project_id": "campuspin-5d264",
+    "storage_bucket": "campuspin-5d264.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693144319042:android:1caab61b10966b27",
+        "android_client_info": {
+          "package_name": "com.example.campuspin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693144319042-9no88tk3b5ke70o7m4tp6ctf78ugekd7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.campuspin",
+            "certificate_hash": "d5f39264745ac36a1926796d6ba97bade7847f8c"
+          }
+        },
+        {
+          "client_id": "693144319042-bn5nb72c6sr01dapti81v1mi6b5q9j72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0un7kyQt-JXIFB337rM9SLKvQ21QN5QM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693144319042-bn5nb72c6sr01dapti81v1mi6b5q9j72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
