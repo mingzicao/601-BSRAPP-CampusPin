@@ -1,20 +1,24 @@
 # 601-BSRAPP-CampusPin
 # Accomplishments
-1.master branch
+# Android App
 
 We are trying to build an app that basically helps users to find out the exact name and address of a given picture, it can also show you the current activities happening in this building or useful resources like printers or bathrooms around. 
 The picture can be either what you find in your friends' twitter, facebook or other social networks, or the one you took from when you are passing by a beautiful and memorable building that you really want to know what its name is or what's going on inside of this building.
 For now, we can realize almost all the basic functions in our android app now, involving Auth, Database, Storage, Analytics, etc. using Firebase.
-  1)Login. Users are allow to login with google account, or using email/password method. After logged in, we will update our database to change your username from "anonymous" to your nickname of Google account or the one you selected. If you are detected not being logged in, the log-in activity will show up to force you to login. Otherwise you can't use the app anymore.
-  2)Search function. When you are trying to find the information of a given building, like for example, you want to search for "Photonics Center", you can simply type "Photonics Center" in the textbox, and press "search", then it will show you all the information you need. For now, we only show the address of the building. Our database is still quite simple and small, but since we can already retrieve value from our database, it won't be a problem if you want to show more in a more decent way. By the way, we can also track users' searching history for further use.
-  3)Upload function. When you press the "Choosing pictures" button in the middle, it firstly opens photo galary in your local position. After choosing one, and press "ok", it will be uploaded to the Firebase storage, then automatically giving back the actual url of the picture and update it into our database.  
 
-2.tree/recognition
+1.Login. Users are allow to login with google account, or using email/password method. After logged in, we will update our database to change your username from "anonymous" to your nickname of Google account or the one you selected. If you are detected not being logged in, the log-in activity will show up to force you to login. Otherwise you can't use the app anymore.
+
+2.Search function. When you are trying to find the information of a given building, like for example, you want to search for "Photonics Center", you can simply type "Photonics Center" in the textbox, and press "search", then it will show you all the information you need. For now, we only show the address of the building. Our database is still quite simple and small, but since we can already retrieve value from our database, it won't be a problem if you want to show more in a more decent way. By the way, we can also track users' searching history for further use.
+
+3.Upload function. When you press the "Choosing pictures" button in the middle, it firstly opens photo galary in your local position. After choosing one, and press "ok", it will be uploaded to the Firebase storage, then automatically giving back the actual url of the picture and update it into our database.  
+
+# Recognition
 
 We also finished the training part of our recognition module, and did several tests, which behaved exactly as we expect, and matched exactly the correct building it should be. 
 
 # DEMO
-1) Single recognition test
+
+1.Single recognition test
 https://youtu.be/l7IX_EygBNM
 In the single_test video, first, I showed the path to train file which is named tf_file. 
 All the train set are stored inside, there are 3 train classes, chapel, pho and aa. I showed all the training data set. 
@@ -23,12 +27,12 @@ Now lets run our module.
 I feed in the module with the test1.jpg, the module outputs the percentage of the similarity. And the prediction is correct, it is class1 chapel. 
 Similarly, I also test the test2 and test3, they also provided the right prediction. So, for the single test part, the module works pretty well.
 
-2) Multiple recognition test
+2.Multiple recognition test
 https://youtu.be/PfREll1pICA
 The 5 test demo Video showed the test set which consists of 5 pictures and our module got all them correctly.
 And for the total test set, it needs about 40 minutes to accomplish. And in the picture I showed another 20 test set result.
 
-3) App
+3.App
 
 https://youtu.be/mnh9CaRLNgk
 
