@@ -1,9 +1,6 @@
 # 601-BSRAPP-CampusPin
-
-	ONE. Accomplishements
-
-1.tree/markshi
-
+# Accomplishments
+1.master branch
 We are trying to build an app that basically helps users to find out the exact name and address of a given picture, it can also show you the current activities happening in this building or useful resources like printers or bathrooms around. 
 The picture can be either what you find in your friends' twitter, facebook or other social networks, or the one you took from when you are passing by a beautiful and memorable building that you really want to know what its name is or what's going on inside of this building.
 For now, we can realize almost all the basic functions in our android app now, involving Auth, Database, Storage, Analytics, etc. using Firebase.
@@ -15,7 +12,7 @@ For now, we can realize almost all the basic functions in our android app now, i
 
 We also finished the training part of our recognition module, and did several tests, which behaved exactly as we expect, and matched exactly the correct building it should be. 
 
-	TWO. demo
+# DEMO
 1) Single recognition test
 https://youtu.be/l7IX_EygBNM
 In the single_test video, first, I showed the path to train file which is named tf_file. 
@@ -39,7 +36,7 @@ https://youtu.be/WPbxhzRGw3E
 Description is as above.
 
 
-	Three. Challenges
+# Challenges
 
 1.The size of our training set is still too small, so the precision of recognition is not high enough. The difficulty is to how to get enough pictures.
 
