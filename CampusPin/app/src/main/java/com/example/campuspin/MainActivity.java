@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity{
         public Building(String name, String address) {
             this.name = name;
             this.address = address;
-
         }
     }
 
@@ -79,11 +78,10 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(searchString)){
-                            textView.setText(dataSnapshot.child(searchString).child("address").getValue().toString());
+                            if(dataSnapshot.child(searchString).child("address").getValue()!=null){
+                            textView.setText(dataSnapshot.child(searchString).child("address").getValue().toString());}
                         }
-                        else{
-                            textView.setText("no");
-                        }
+                        else{textView.setText("no");}
                     }
                     @Override                    public void onCancelled(DatabaseError databaseError) {}
                 });
@@ -96,8 +94,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    public void sendToSignIn(View view) {
-        //Intent intent = new Intent(this, DisplayMessageActivity.class);
+    public void openSignIn(View view) {
         Intent intent = new Intent(this, EmailPasswordActivity.class);
         startActivity(intent);
     }
@@ -116,12 +113,7 @@ public class MainActivity extends AppCompatActivity{
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         myRef.child("user").child("searchHistory").push().setValue(message);
-        //myRef.child("hello").push().setValue(message);
-        /*TextView textView = (TextView) findViewById(R.id.textView2);
-        textView.setText(editText.getText().toString());
-        String ha= myRef.child("Building").child("PHO").getKey();
-        myRef.child("yes").push().setValue(ha);
-        editText.setText("");*/
+        editText.setText("");
     }
 
     public void sendMessage2(View view) { // send pic to somewhre
