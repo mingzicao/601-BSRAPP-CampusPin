@@ -1,6 +1,7 @@
 # 601-BSRAPP-CampusPin
 # Accomplishments
 1.master branch
+
 We are trying to build an app that basically helps users to find out the exact name and address of a given picture, it can also show you the current activities happening in this building or useful resources like printers or bathrooms around. 
 The picture can be either what you find in your friends' twitter, facebook or other social networks, or the one you took from when you are passing by a beautiful and memorable building that you really want to know what its name is or what's going on inside of this building.
 For now, we can realize almost all the basic functions in our android app now, involving Auth, Database, Storage, Analytics, etc. using Firebase.
