@@ -18,7 +18,9 @@ We also finished the training part of our recognition module, and did several te
 # DEMO
 
 1.Single recognition test
+
 https://youtu.be/l7IX_EygBNM
+
 In the single_test video, first, I showed the path to train file which is named tf_file. 
 All the train set are stored inside, there are 3 train classes, chapel, pho and aa. I showed all the training data set. 
 Then I opened the test file, in this video, I will test these 3 test picture separately to find out if our module is working. You can see the test1.jpg is chapel, the test2 is Pho, and the test3 is aa. 
@@ -27,7 +29,9 @@ I feed in the module with the test1.jpg, the module outputs the percentage of th
 Similarly, I also test the test2 and test3, they also provided the right prediction. So, for the single test part, the module works pretty well.
 
 2.Multiple recognition test
+
 https://youtu.be/PfREll1pICA
+
 The 5 test demo Video showed the test set which consists of 5 pictures and our module got all them correctly.
 And for the total test set, it needs about 40 minutes to accomplish. And in the picture I showed another 20 test set result.
 
