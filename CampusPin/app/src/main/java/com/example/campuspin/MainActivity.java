@@ -29,9 +29,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Objects;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.example.campuspin.R.id.editText;
-import static com.example.campuspin.R.id.textView2;
+
 
 public class MainActivity extends AppCompatActivity{
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -94,8 +96,17 @@ public class MainActivity extends AppCompatActivity{
 //        });
 
     }
-
+    public int a;
     public void openSignInActivity(View view) {
+//        TextView textView = (TextView) findViewById(R.id.textView2);
+//        if (a == View.VISIBLE){
+//            a = View.INVISIBLE;
+//        }
+//        else {
+//        a = View.VISIBLE;
+//        }
+//        textView.setVisibility(a);
+//        }
         Intent intent = new Intent(this, EmailPasswordActivity.class);
         startActivity(intent);
     }
@@ -107,7 +118,7 @@ public class MainActivity extends AppCompatActivity{
 
     private DatabaseReference myRef;
     private StorageReference myStorage;
-
+    public String actualSearch;
     public void search(View view) {
         EditText editText = (EditText) findViewById(R.id.editText);
         final String searchString = editText.getText().toString();
@@ -118,22 +129,34 @@ public class MainActivity extends AppCompatActivity{
         myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(searchString)){
-//                    if(dataSnapshot.child(searchString).child("address").getValue()!=null){
-//                        textView.setText(dataSnapshot.child(searchString).child("address").getValue().toString());
-//                    }
+                if(Objects.equals(searchString,"pho")||Objects.equals(searchString,"Photonics Center")||Objects.equals(searchString,"photonics center")||Objects.equals(searchString,"Photonic Center")||Objects.equals(searchString,"photonic center")){
+                    actualSearch = "PHO";
+//                    TextView textView = (TextView) findViewById(R.id.textView);
+//                    textView.setText("h"+searchString+"h");
+//                    TextView textView1 = (TextView) findViewById(R.id.textView2);
+//                    textView1.setText("h"+"pho"+"h");
+                }
+                else if(Objects.equals(searchString,"agganis arena")||Objects.equals(searchString,"Agganis")||Objects.equals(searchString,"agganis")||Objects.equals(searchString,"AgganisArena")||Objects.equals(searchString,"agganisarena")){
+                    actualSearch = "Agganis Arena";
+                }
+                else if(Objects.equals(searchString,"marsh chapel")||Objects.equals(searchString,"MarshChapel")||Objects.equals(searchString,"marshchapel")||Objects.equals(searchString,"the Marsh Chapel")||Objects.equals(searchString,"the marsh chapel")){
+                    actualSearch = "Marsh Chapel";
+                }
+                else{
+                    actualSearch = searchString;
+                }
+
+                if (dataSnapshot.hasChild(actualSearch)){
+
                     Intent intent = new Intent(getApplicationContext(), DisplayInformation.class);
-                    intent.putExtra("key",searchString);
+                    intent.putExtra("key",actualSearch);
                     startActivity(intent);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {            }
         });
-
     }
 
     public void searchByPhoto(View view) { // send pic to somewhre

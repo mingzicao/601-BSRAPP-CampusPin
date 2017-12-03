@@ -20,6 +20,7 @@ public class DisplayInformation extends AppCompatActivity {
         setContentView(R.layout.activity_display_information);
         Intent intent = getIntent();
         final String searchString = intent.getStringExtra("key");
+
         // Get the Intent that started this activity and extract the string
         //Intent intent = getIntent();
         //String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
@@ -28,7 +29,7 @@ public class DisplayInformation extends AppCompatActivity {
         myRefBuilding = database.getReference("Building");
         myRef = database.getReference();
         TextView name = (TextView) findViewById(R.id.name);
-        name.setText(searchString.toString());
+        name.setText(searchString);
         final TextView address = (TextView) findViewById(R.id.address);
         myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
