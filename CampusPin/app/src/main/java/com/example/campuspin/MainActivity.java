@@ -29,12 +29,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Objects;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.example.campuspin.R.id.editText;
-import static com.example.campuspin.R.id.textView2;
+
 
 public class MainActivity extends AppCompatActivity{
     private static final int RESULT_LOAD_IMAGE = 1;
-    public static final String EXTRA_MESSAGE = "com.example.campuspin.MESSAGE";
     private FirebaseAnalytics mFirebaseAnalytics;
     ImageView imageToUpload;
     private DatabaseReference mDatabase;
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity{
         public Building(String name, String address) {
             this.name = name;
             this.address = address;
-
         }
     }
 
@@ -64,40 +65,48 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
         imageToUpload = (ImageView) findViewById(R.id.imageToUpload);
         //imageToUpload.setOnClickListener(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRefBuilding = database.getReference("Building");
         myRef = database.getReference();
-        myRef.child("user").child("searchHistory").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s){
-                final TextView textView= (TextView) findViewById(R.id.textView2);
-                final String searchString = dataSnapshot.getValue().toString();
-                myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(searchString)){
-                            textView.setText(dataSnapshot.child(searchString).child("address").getValue().toString());
-                        }
-                        else{
-                            textView.setText("no");
-                        }
-                    }
-                    @Override                    public void onCancelled(DatabaseError databaseError) {}
-                });
-            }
-            @Override            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-            @Override            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-            @Override            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-            @Override            public void onCancelled(DatabaseError databaseError) {}
-        });
+//        myRef.child("user").child("searchHistory").addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s){
+//                final TextView textView= (TextView) findViewById(R.id.textView2);
+//                final String searchString = dataSnapshot.getValue().toString();
+//                myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.hasChild(searchString)){
+//                            if(dataSnapshot.child(searchString).child("address").getValue()!=null){
+//                            textView.setText(dataSnapshot.child(searchString).child("address").getValue().toString());
+//                            }
+//                        }
+//                        else{textView.setText("no");}
+//                    }
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {}
+//                });
+//            }
+//            @Override            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+//            @Override            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+//            @Override            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+//            @Override            public void onCancelled(DatabaseError databaseError) {}
+//        });
 
     }
-
-    public void sendToSignIn(View view) {
-        //Intent intent = new Intent(this, DisplayMessageActivity.class);
+    public int a;
+    public void openSignInActivity(View view) {
+//        TextView textView = (TextView) findViewById(R.id.textView2);
+//        if (a == View.VISIBLE){
+//            a = View.INVISIBLE;
+//        }
+//        else {
+//        a = View.VISIBLE;
+//        }
+//        textView.setVisibility(a);
+//        }
         Intent intent = new Intent(this, EmailPasswordActivity.class);
         startActivity(intent);
     }
@@ -109,22 +118,48 @@ public class MainActivity extends AppCompatActivity{
 
     private DatabaseReference myRef;
     private StorageReference myStorage;
-
+    public String actualSearch;
     public void search(View view) {
         EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
+        final String searchString = editText.getText().toString();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
-        myRef.child("user").child("searchHistory").push().setValue(message);
-        //myRef.child("hello").push().setValue(message);
-        /*TextView textView = (TextView) findViewById(R.id.textView2);
-        textView.setText(editText.getText().toString());
-        String ha= myRef.child("Building").child("PHO").getKey();
-        myRef.child("yes").push().setValue(ha);
-        editText.setText("");*/
+        myRef.child("user").child("searchHistory").push().setValue(searchString);
+        editText.setText("");
+        myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(Objects.equals(searchString,"pho")||Objects.equals(searchString,"Photonics Center")||Objects.equals(searchString,"photonics center")||Objects.equals(searchString,"Photonic Center")||Objects.equals(searchString,"photonic center")){
+                    actualSearch = "PHO";
+//                    TextView textView = (TextView) findViewById(R.id.textView);
+//                    textView.setText("h"+searchString+"h");
+//                    TextView textView1 = (TextView) findViewById(R.id.textView2);
+//                    textView1.setText("h"+"pho"+"h");
+                }
+                else if(Objects.equals(searchString,"agganis arena")||Objects.equals(searchString,"Agganis")||Objects.equals(searchString,"agganis")||Objects.equals(searchString,"AgganisArena")||Objects.equals(searchString,"agganisarena")){
+                    actualSearch = "Agganis Arena";
+                }
+                else if(Objects.equals(searchString,"marsh chapel")||Objects.equals(searchString,"MarshChapel")||Objects.equals(searchString,"marshchapel")||Objects.equals(searchString,"the Marsh Chapel")||Objects.equals(searchString,"the marsh chapel")){
+                    actualSearch = "Marsh Chapel";
+                }
+                else{
+                    actualSearch = searchString;
+                }
+
+                if (dataSnapshot.hasChild(actualSearch)){
+
+                    Intent intent = new Intent(getApplicationContext(), DisplayInformation.class);
+                    intent.putExtra("key",actualSearch);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {            }
+        });
     }
 
-    public void sendMessage2(View view) { // send pic to somewhre
+    public void searchByPhoto(View view) { // send pic to somewhre
         FirebaseStorage storage = FirebaseStorage.getInstance();
         myStorage = storage.getReference(selectedImage.getLastPathSegment());
         myStorage.putFile(selectedImage).addOnCompleteListener(this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
