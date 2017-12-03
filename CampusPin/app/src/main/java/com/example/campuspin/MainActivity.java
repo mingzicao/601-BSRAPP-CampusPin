@@ -145,7 +145,6 @@ public class MainActivity extends AppCompatActivity{
                 else{
                     actualSearch = searchString;
                 }
-
                 if (dataSnapshot.hasChild(actualSearch)){
 
                     Intent intent = new Intent(getApplicationContext(), DisplayInformation.class);
@@ -153,7 +152,6 @@ public class MainActivity extends AppCompatActivity{
                     startActivity(intent);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {            }
         });
