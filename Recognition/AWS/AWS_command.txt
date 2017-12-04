@@ -1,0 +1,8 @@
+scp -i random.pem ~/tf_files/retrained_graph.pb ec2-user@ec2-34-205-32-49.compute-1.amazonaws.com:~/class/
+
+
+scp -i random.pem ec2-user@ec2-34-205-32-49.compute-1.amazonaws.com:~/result.txt ~/tf_files/result.txt 
+
+scp -i random.pem ec2-user@ec2-34-205-32-49.compute-1.amazonaws.com:~/build/result.txt ~/tf_files/result.txt
+
+scp -i random.pem ~/tf_files/test2.jpg ec2-user@ec2-34-205-32-49.compute-1.amazonaws.com:~/build/test1.jpg
