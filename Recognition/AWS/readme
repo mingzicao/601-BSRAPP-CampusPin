@@ -1,0 +1,13 @@
+this is the back up for intergradted the android with python.
+I have launched a instance on AWS, and copied all the file into AWS EC2.
+After all the file sending, the recognition module could run continiously on AWS.
+Once you change the recognition image, the recognition result will also change.
+
+
+Zhiyu Wang
+
+
+HOW TO USE IT:
+
+after launch your own AWS instance, follow the command in AWS_commmand.txt.
+Typing them in terminal, you can run the recognition module on AWS.
