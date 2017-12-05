@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        if(Objects.equals(username,null)){
+            username = "Anonymous";
+        }
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         imageToUpload = (ImageView) findViewById(R.id.imageToUpload);
         //imageToUpload.setOnClickListener(this);
@@ -111,10 +116,6 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void chooseImage(View view) {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
-    }
 
     private DatabaseReference myRef;
     private StorageReference myStorage;
@@ -124,17 +125,13 @@ public class MainActivity extends AppCompatActivity{
         final String searchString = editText.getText().toString();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
-        myRef.child("user").child("searchHistory").push().setValue(searchString);
+        myRef.child("user").child(username).child("searchHistory").push().setValue(searchString);
         editText.setText("");
         myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(Objects.equals(searchString,"pho")||Objects.equals(searchString,"Photonics Center")||Objects.equals(searchString,"photonics center")||Objects.equals(searchString,"Photonic Center")||Objects.equals(searchString,"photonic center")){
                     actualSearch = "PHO";
-//                    TextView textView = (TextView) findViewById(R.id.textView);
-//                    textView.setText("h"+searchString+"h");
-//                    TextView textView1 = (TextView) findViewById(R.id.textView2);
-//                    textView1.setText("h"+"pho"+"h");
                 }
                 else if(Objects.equals(searchString,"agganis arena")||Objects.equals(searchString,"Agganis")||Objects.equals(searchString,"agganis")||Objects.equals(searchString,"AgganisArena")||Objects.equals(searchString,"agganisarena")){
                     actualSearch = "Agganis Arena";
@@ -145,7 +142,6 @@ public class MainActivity extends AppCompatActivity{
                 else{
                     actualSearch = searchString;
                 }
-
                 if (dataSnapshot.hasChild(actualSearch)){
 
                     Intent intent = new Intent(getApplicationContext(), DisplayInformation.class);
@@ -153,13 +149,22 @@ public class MainActivity extends AppCompatActivity{
                     startActivity(intent);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {            }
         });
     }
 
-    public void searchByPhoto(View view) { // send pic to somewhre
+    private Uri selectedImage;
+    public void chooseImage(View view) {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+    }
+    private String username="Anonymous";
+    public void searchByPhoto(View view) {
+        //TextView name = (TextView) findViewById(R.id.textView2);
+        if (Objects.equals(username, null)) {
+            username = "Anonymous";
+        }
         FirebaseStorage storage = FirebaseStorage.getInstance();
         myStorage = storage.getReference(selectedImage.getLastPathSegment());
         myStorage.putFile(selectedImage).addOnCompleteListener(this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -172,7 +177,6 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    private Uri selectedImage;
     @Override // when click image, here will be called
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
