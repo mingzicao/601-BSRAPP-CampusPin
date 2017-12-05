@@ -1,0 +1,3 @@
+the backend of the compus pin is written in python using the library of tensorflow and firebase.
+the python file import firebase to connect to the database and storage of the picture.
+you can just run the python script in terminal and stop it with ctrl+c to see what it could do to the database of firebase.
