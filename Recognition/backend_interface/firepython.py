@@ -9,15 +9,14 @@ image_path = "test.jpg"#sys.argv[1]
 firebase1 = firebase.FirebaseApplication('https://campuspin-5d264.firebaseio.com/', None)
 
 def readfire():
-    result = firebase1.get('/Building/PHO/', None)
+    result = firebase1.get('/url', None)
     [username] = firebase1.get('/user', None).keys()
     url = result.values()
-    #print(url)
     ulen = len(url)
     #print(ulen)
     #url = result[u'-KyqbHZV0E1NLAwHMJbQ'][u'photoUrl']
-    urllib.urlretrieve(url[0], "test1.jpg")
-    return username,ulen
+    #urllib.urlretrieve(url[ulen-1], "test.jpg")
+    return username,ulen,result
 
 def recognition():
    # read in the image_data
@@ -56,24 +55,43 @@ def recognition():
     return result
 
 def postfire(result,username):
-    index = 4
+    index = 'recognition_result'
     firebase1.put('user','/'+username+'/searchHistory'+'/'+str(index),result)
     
 def main():
-    #username,ulen = readfire()
-    post = recognition()
-    postfire(post,'a')
-    os.remove('test.jpg')
-    # oldulen = 0
-    # for _ in range(10):
-    #     username,ulen = readfire()
-    #     print(ulen,oldulen)
-    #     if(ulen != oldulen):
-    #         post = recognition()
-    #         postfire(post,username)
-    #         oldulen = ulen
-    #     os.remove('test.jpg')
-    #     time.sleep(5)
+    # username,ulen,urllist = readfire()
+    # post = recognition()
+    # postfire(post,'a')
+    # os.remove('test.jpg')
+    urldic = {}
+    oldurldic = {}
+    updateurl = {}
+
+    #initial
+    username,ulen,urldic = readfire()
+    oldurldic = urldic
+    oldulen = ulen
+    #end initial
+
+    for _ in range(10):
+        username,ulen,urldic = readfire()
+        if(ulen != oldulen):
+            updateurl = dict(set(urldic.items())-set(oldurldic.items()))
+            #update checker
+            oldurldic = urldic
+            oldulen = ulen
+            [link] = updateurl.values()
+            urllib.urlretrieve(link, "test.jpg")
+            post = recognition()
+            postfire(post,username)
+            os.remove('test.jpg')
+            # print(updateurl)
+        #     username,ulen = readfire()
+        #     post = recognition()
+        #     postfire(post,username)
+        #     oldulen = ulen
+        # os.remove('test.jpg')
+        time.sleep(5)
 
 
 if __name__ == '__main__':
