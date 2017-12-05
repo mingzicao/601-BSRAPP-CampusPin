@@ -1,3 +1,7 @@
 the backend of the compus pin is written in python using the library of tensorflow and firebase.
 the python file import firebase to connect to the database and storage of the picture.
 you can just run the python script in terminal and stop it with ctrl+c to see what it could do to the database of firebase.
+you may also download the file "retrained_graph.pb" in google drive with link: 
+https://drive.google.com/open?id=1H4-zBGwtZHCjzx1sdQYF7EytXWYZpRL6
+
+putting the file retrained_graph.pb in the same directory with these two files, then you can run the firepython.py.
