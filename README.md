@@ -10,7 +10,7 @@ For now, we can realize almost all the basic functions in our android app now, i
 3.Upload function. When you press the "Choosing pictures" button in the middle, it firstly opens photo galary in your local position. After choosing one, and press "ok", it will be uploaded to the Firebase storage, then automatically giving back the actual url of the picture and update it into our database.  
 
 ## Recognition
-
+Most recent update of recognition is in the master branch. It includes all the files which could run in AWS, run in terminal. Just follow the readme inside, you can run the recognition module in different cases.
 
 ### App DEMO
 
@@ -51,6 +51,7 @@ Then, open the test file, test 3 pictures-test1.jpg, test2.jpg and test3.jpg sep
 * [Android Studio](https://developer.android.com/studio/index.html) - Android App used
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Tenser Flow](https://www.tensorflow.org/) - Used to train recognition module
+
 
 ## Authors
 
