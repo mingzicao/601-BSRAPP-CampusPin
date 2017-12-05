@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_history"
+        android:icon="@mipmap/history_icon"
+        android:title="Search History" />
+    <item android:id = "@+id/nav_events"
+        android:icon="@mipmap/upload"
+        android:title = "Upload Events"/>
+    <item android:id = "@+id/nav_logout"
+        android:icon="@mipmap/logout_icon"
+        android:title = "Log Out"/>
+</menu>
