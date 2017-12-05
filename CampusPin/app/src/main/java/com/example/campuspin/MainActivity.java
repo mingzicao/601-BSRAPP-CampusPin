@@ -161,20 +161,22 @@ public class MainActivity extends AppCompatActivity{
     }
     private String username="Anonymous";
     public void searchByPhoto(View view) {
-        TextView name = (TextView) findViewById(R.id.textView2);
-//        if (Objects.equals(username,null)){
-//            username = "Anonymous";
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        myStorage = storage.getReference(selectedImage.getLastPathSegment());
-//        myStorage.putFile(selectedImage).addOnCompleteListener(this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                Uri downloadUrl = task.getResult().getDownloadUrl();
-//                String url = downloadUrl.toString();
-//                myRef.child("url").push().setValue(url);
-//            }
-//        });
+        //TextView name = (TextView) findViewById(R.id.textView2);
+        if (Objects.equals(username, null)) {
+            username = "Anonymous";
+        }
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        myStorage = storage.getReference(selectedImage.getLastPathSegment());
+        myStorage.putFile(selectedImage).addOnCompleteListener(this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                Uri downloadUrl = task.getResult().getDownloadUrl();
+                String url = downloadUrl.toString();
+                myRef.child("url").push().setValue(url);
+            }
+        });
     }
+
     @Override // when click image, here will be called
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
