@@ -48,9 +48,9 @@ Then, open the test file, test 3 pictures-test1.jpg, test2.jpg and test3.jpg sep
 
 ## Built With
 
-* [Android Studio](https://developer.android.com/studio/index.html) - Android App used
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Tenser Flow](https://www.tensorflow.org/) - Used to train recognition module
+* [Firebase](https://firebase.google.com/) - Used for Auth, Database, Storage and Analytics
 
 
 ## Authors
