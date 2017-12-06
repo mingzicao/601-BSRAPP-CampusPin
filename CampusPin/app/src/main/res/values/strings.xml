@@ -8,4 +8,5 @@
     <string name="login_password">Password...</string>
     <string name="button_login">Login</string>
     <string name="button_signIn">Switch account</string>
+    <string name="title_activity_sign_up">signUpActivity</string>
 </resources>

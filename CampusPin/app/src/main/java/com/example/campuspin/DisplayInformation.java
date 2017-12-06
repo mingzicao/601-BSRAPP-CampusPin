@@ -1,8 +1,12 @@
 package com.example.campuspin;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -11,37 +15,54 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class DisplayInformation extends AppCompatActivity {
     DatabaseReference myRefBuilding;
     DatabaseReference myRef;
+    private TextView phone;
+    private TextView address;
+    private TextView name;
+    private TextView resource;
+    Bitmap newBitmap;
+    String url;
+    private ImageView image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_information);
         Intent intent = getIntent();
-        final String searchString = intent.getStringExtra("key");
 
-        // Get the Intent that started this activity and extract the string
-        //Intent intent = getIntent();
-        //String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        // Capture the layout's TextView and set the string as its text
+        final String searchString = intent.getStringExtra("key");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRefBuilding = database.getReference("Building");
+
         myRef = database.getReference();
-        TextView name = (TextView) findViewById(R.id.name);
+        phone =  findViewById(R.id.showPhone);
+        address =  findViewById(R.id.showAddress);
+        name = findViewById(R.id.showName);
+        resource = findViewById(R.id.showName);
+        image = findViewById(R.id.SearchResult);
+
         name.setText(searchString);
-        final TextView address = (TextView) findViewById(R.id.address);
+
         myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(searchString).child("address").getValue()!=null){
                     address.setText(dataSnapshot.child(searchString).child("address").getValue().toString());
+                } else{
+                    address.setText("No record");
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {            }
+
         });
-        final TextView phone = (TextView) findViewById(R.id.phone);
+
         myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -54,7 +75,89 @@ public class DisplayInformation extends AppCompatActivity {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {            }
+
         });
 
+
+
+
+
+        myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(searchString).child("url").getValue()!=null){
+                    //  System.out.println("url" + );
+                    url = dataSnapshot.child(searchString).child("url").getValue().toString();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("url" + url);
+
+                            newBitmap = getBitmapFromURL(url);
+
+                            Thread timer = new Thread()
+                            {
+                                public void run()
+                                {
+                                    try
+                                    {
+                                        sleep(10);
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                image.setImageBitmap(newBitmap);
+                                            }
+                                        });
+                                    }
+                                    catch (InterruptedException e)
+                                    {
+                                        e.printStackTrace();
+                                    }
+                                    finally
+                                    {
+                                        System.out.println("finally");
+                                    }
+                                }
+                            };
+                            timer.start();
+                        }
+                    }).start();
+
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {            }
+
+        });
+
+
     }
+
+
+
+
+    public Bitmap getBitmapFromURL(String src) {
+
+
+        try {
+            Log.e("src",src);
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            Log.e("Bitmap","returned");
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Exception",e.getMessage());
+            return null;
+        }
+    }
+
+
+
 }

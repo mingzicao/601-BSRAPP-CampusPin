@@ -38,7 +38,7 @@ public class EmailPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ep);
+        setContentView(R.layout.activity_email_password);
         mAuth = FirebaseAuth.getInstance();
         mEmailField = (EditText) findViewById(R.id.emailField);
         mPasswordField =  (EditText) findViewById(R.id.passwordField);
@@ -59,6 +59,7 @@ public class EmailPasswordActivity extends AppCompatActivity {
 
             }
         });
+
 /*
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -79,6 +80,12 @@ public class EmailPasswordActivity extends AppCompatActivity {
 */
     }
 
+
+    public void signUp (View view){
+        Intent intent2 = new Intent(this,  signUpActivity.class);
+        //  intent2.putExtra(EXTRA_MESSAGE, username);
+        startActivity(intent2);
+    }
 
     private void startSignIn() {
         email = mEmailField.getText().toString();
