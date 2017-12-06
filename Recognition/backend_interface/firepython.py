@@ -51,9 +51,13 @@ def recognition():
     #print('%s (score = %.5f)' % (human_string, score))
     maxscore = max(score.values())
     if maxscore < 0.55:
-      result = "uknown class, most likely: (1) "+list1[0]+"; (2) "+list1[1]
+        result = "Sorry, we get no matching"
+        output1 = list1[0]
+        output2 = list1[1]
     else:
-      result = list1[0]
+        result = list1[0]
+        output1 = list1[0]
+        output2 = list1[1]
 
     
     if result == 'class1 chapel':
@@ -65,12 +69,30 @@ def recognition():
     elif result == 'class4 com':
         output = 'Communication Research Center'
     else:
-        output = result 
+        output = result
+    output1 = transfer(output1)
+    output2 = transfer(output2)
+    return output,output1,output2
+
+def transfer(result):
+    if result == 'class1 chapel':
+        output = 'Marsh Chapel'
+    elif result == 'class2 pho':
+        output = 'PHO'
+    elif result == 'class3 aa':
+        output = 'Agganis Arena'
+    elif result == 'class4 com':
+        output = 'Communication Research Center'
     return output
 
-def postfire(result,username):
+
+def postfire(result,output1,output2,username):
     #index = 'recognition_result'
-    firebase1.put('user','/'+username+'/result',result)#'/searchHistory'+'/'+str(index)
+    firebase1.put('user','/'+username+'/result/similar1',output1)#'/searchHistory'+'/'+str(index)
+    firebase1.put('user','/'+username+'/result/similar2',output2)#'/searchHistory'+'/'+str(index)   
+    firebase1.put('user','/'+username+'/result/result1',result)#'/searchHistory'+'/'+str(index)
+    #firebase1.put('user','/'+username+'/result/similar1',output1)#'/searchHistory'+'/'+str(index)
+    #firebase1.put('user','/'+username+'/result/similar2',output2)#'/searchHistory'+'/'+str(index)
     
 def main():
     # username,ulen,urllist = readfire()
@@ -80,7 +102,6 @@ def main():
     urldic = {}
     oldurldic = {}
     updateurl = {}
-
     #initial
     username,ulen,urldic = readfire()
     oldurldic = urldic
@@ -99,8 +120,8 @@ def main():
             else:
                 [link] = updateurl.values()
                 urllib.urlretrieve(link, "test.jpg")
-                post = recognition()
-                postfire(post,username)
+                post,post1,post2 = recognition()
+                postfire(post,post1,post2,username)
                 os.remove('test.jpg')
             # print(updateurl)
         #     username,ulen = readfire()
