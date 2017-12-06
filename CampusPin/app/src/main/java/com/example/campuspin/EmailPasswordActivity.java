@@ -16,7 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class EmailPasswordActivity extends AppCompatActivity {
@@ -31,6 +32,8 @@ public class EmailPasswordActivity extends AppCompatActivity {
     public String username;
     private String password;
     boolean valid = false;
+    private DatabaseReference myRef;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class EmailPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startSignIn();
                 if (valid){
+                    myRef.child("currentUser").setValue(username);
                     Intent intent1 = new Intent(EmailPasswordActivity.this,MainActivity.class);
                     intent1.putExtra("username", username);
                     startActivity(intent1);

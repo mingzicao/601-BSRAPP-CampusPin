@@ -33,6 +33,7 @@ import java.util.Objects;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.example.campuspin.R.id.editText;
+import static com.example.campuspin.R.id.textView2;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -75,52 +76,50 @@ public class MainActivity extends AppCompatActivity{
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRefBuilding = database.getReference("Building");
         myRef = database.getReference();
-//        myRef.child("user").child("searchHistory").addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s){
-//                final TextView textView= (TextView) findViewById(R.id.textView2);
-//                final String searchString = dataSnapshot.getValue().toString();
-//                myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.hasChild(searchString)){
-//                            if(dataSnapshot.child(searchString).child("address").getValue()!=null){
-//                            textView.setText(dataSnapshot.child(searchString).child("address").getValue().toString());
-//                            }
-//                        }
-//                        else{textView.setText("no");}
-//                    }
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {}
-//                });
-//            }
-//            @Override            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-//            @Override            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-//            @Override            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-//            @Override            public void onCancelled(DatabaseError databaseError) {}
-//        });
+        myRef.child("user").child("Anonymous").child("result").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                actualSearch = dataSnapshot.getValue().toString();
+                TextView name = (TextView) findViewById(R.id.textView2);
+                name.setText(actualSearch);
+                if(Objects.equals(dataSnapshot.getKey(), "result1")){
+                    Intent intent = new Intent(getApplicationContext(), DisplayInformation.class);
+                    intent.putExtra("key",actualSearch);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
-    public int a;
     public void openSignInActivity(View view) {
-//        TextView textView = (TextView) findViewById(R.id.textView2);
-//        if (a == View.VISIBLE){
-//            a = View.INVISIBLE;
-//        }
-//        else {
-//        a = View.VISIBLE;
-//        }
-//        textView.setVisibility(a);
-//        }
         Intent intent = new Intent(this, EmailPasswordActivity.class);
         startActivity(intent);
     }
 
-
     private DatabaseReference myRef;
     private StorageReference myStorage;
     public String actualSearch;
-    public void search(View view) {
+    public void searchByWord(View view) {
         EditText editText = (EditText) findViewById(R.id.editText);
         final String searchString = editText.getText().toString();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -152,6 +151,8 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onCancelled(DatabaseError databaseError) {            }
         });
+
+
     }
 
     private Uri selectedImage;
@@ -160,6 +161,7 @@ public class MainActivity extends AppCompatActivity{
         startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
     }
     private String username="Anonymous";
+
     public void searchByPhoto(View view) {
         //TextView name = (TextView) findViewById(R.id.textView2);
         if (Objects.equals(username, null)) {
@@ -172,7 +174,7 @@ public class MainActivity extends AppCompatActivity{
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 Uri downloadUrl = task.getResult().getDownloadUrl();
                 String url = downloadUrl.toString();
-                myRef.child("url").push().setValue(url);
+                myRef.child("user").child(username).child("picturesSearchHistory ").push().setValue(url);
             }
         });
     }
