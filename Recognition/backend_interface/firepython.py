@@ -9,14 +9,14 @@ image_path = "test.jpg"#sys.argv[1]
 firebase1 = firebase.FirebaseApplication('https://campuspin-5d264.firebaseio.com/', None)
 
 def readfire():
-    result = firebase1.get('/url', None)
-    [username] = firebase1.get('/user', None).keys()
-    url = result.values()
+    result = firebase1.get('/user', None)
+    username = firebase1.get('/currentUser', None)
+    url = result[username][u'picturesSearchHistory ']
     ulen = len(url)
     #print(ulen)
     #url = result[u'-KyqbHZV0E1NLAwHMJbQ'][u'photoUrl']
     #urllib.urlretrieve(url[ulen-1], "test.jpg")
-    return username,ulen,result
+    return username,ulen,url
 
 def recognition():
    # read in the image_data
@@ -46,17 +46,31 @@ def recognition():
       human_string = label_lines[node_id]
       score[human_string] = (predictions[0][node_id])
     list1 = sorted(score, key = score.__getitem__, reverse=True)
+
+
     #print('%s (score = %.5f)' % (human_string, score))
     maxscore = max(score.values())
     if maxscore < 0.55:
-      result = "uknown class\n\n"+list1[0]+"\n"+list1[1]
+      result = "uknown class, most likely: (1) "+list1[0]+"; (2) "+list1[1]
     else:
       result = list1[0]
-    return result
+
+    
+    if result == 'class1 chapel':
+        output = 'Marsh Chapel'
+    elif result == 'class2 pho':
+        output = 'PHO'
+    elif result == 'class3 aa':
+        output = 'Agganis Arena'
+    elif result == 'class4 com':
+        output = 'Communication Research Center'
+    else:
+        output = result 
+    return output
 
 def postfire(result,username):
-    index = 'recognition_result'
-    firebase1.put('user','/'+username+'/searchHistory'+'/'+str(index),result)
+    #index = 'recognition_result'
+    firebase1.put('user','/'+username+'/result',result)#'/searchHistory'+'/'+str(index)
     
 def main():
     # username,ulen,urllist = readfire()
@@ -73,18 +87,21 @@ def main():
     oldulen = ulen
     #end initial
 
-    for _ in range(10):
+    for _ in range(100):#change the number here, 10 means 1 minutes.
         username,ulen,urldic = readfire()
         if(ulen != oldulen):
             updateurl = dict(set(urldic.items())-set(oldurldic.items()))
             #update checker
             oldurldic = urldic
             oldulen = ulen
-            [link] = updateurl.values()
-            urllib.urlretrieve(link, "test.jpg")
-            post = recognition()
-            postfire(post,username)
-            os.remove('test.jpg')
+            if(updateurl == {}):
+                1
+            else:
+                [link] = updateurl.values()
+                urllib.urlretrieve(link, "test.jpg")
+                post = recognition()
+                postfire(post,username)
+                os.remove('test.jpg')
             # print(updateurl)
         #     username,ulen = readfire()
         #     post = recognition()
