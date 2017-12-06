@@ -18,10 +18,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.Objects;
 
 public class AccountActitivity extends AppCompatActivity implements View.OnClickListener,  NavigationView.OnNavigationItemSelectedListener {
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -29,8 +35,9 @@ public class AccountActitivity extends AppCompatActivity implements View.OnClick
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Button mSendData;
-    private DatabaseReference mDatabase;
+  //  private DatabaseReference mDatabase;
     private EditText mTxt;
+    private String searchString;
     private String username;
     private TextView mDisplayUser;
     private ImageView mImageView;
@@ -40,7 +47,9 @@ public class AccountActitivity extends AppCompatActivity implements View.OnClick
     private FirebaseAuth mAuth;
     private Toolbar myToolbar;
     private TextView mheaderDisplay;
-
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
+    private DatabaseReference myRefBuilding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +59,14 @@ public class AccountActitivity extends AppCompatActivity implements View.OnClick
         setSupportActionBar(myToolbar);
 
         myToolbar.setTitle("Campus Pin");
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mToggle = new ActionBarDrawerToggle (this, mDrawerLayout, myToolbar, R.string.open, R.string.close);
         mToggle.syncState();
 
-
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("user");
         setWidgetListner();
+        myRefBuilding = database.getReference("Building");
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
     }
@@ -73,6 +80,7 @@ public class AccountActitivity extends AppCompatActivity implements View.OnClick
         // mheaderDisplay = (TextView) findViewById(R.layout.naviheader_layout.);
         mTxt = (EditText) findViewById(R.id.textSearch);
 
+
     }
     private void startSearchHistoryActivity(View view) { // send text from main
         // Do something in response to button
@@ -85,14 +93,51 @@ public class AccountActitivity extends AppCompatActivity implements View.OnClick
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
     private void setWidgetListner (){
         setNavigationViewListner();
         mSendData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = mTxt.getText().toString();
-                //   mDatabase.child("cmz").setValue(message);
-                mDatabase.child(username).push().setValue(message);
+                searchString = mTxt.getText().toString();
+
+                myRef = database.getReference();
+                myRef.child("user").child("searchHistory").push().setValue(searchString);
+               // mTxt.setText("");
+                myRefBuilding.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String actualSearch ="none";
+
+                        if(Objects.equals(searchString,"pho")||Objects.equals(searchString,"Photonics Center")||Objects.equals(searchString,"photonics center")||Objects.equals(searchString,"Photonic Center")||Objects.equals(searchString,"photonic center")){
+
+                            actualSearch = "PHO";
+
+//
+                        }
+                        else if(Objects.equals(searchString,"agganis arena")||Objects.equals(searchString,"Agganis")||Objects.equals(searchString,"agganis")||Objects.equals(searchString,"AgganisArena")||Objects.equals(searchString,"agganisarena")){
+                            actualSearch = "Agganis Arena";
+                        }
+                        else if(Objects.equals(searchString,"marsh chapel")||Objects.equals(searchString,"MarshChapel")||Objects.equals(searchString,"marshchapel")||Objects.equals(searchString,"the Marsh Chapel")||Objects.equals(searchString,"the marsh chapel")){
+                            actualSearch = "Marsh Chapel";
+                        }
+                        else{
+                            actualSearch = searchString;
+                        }
+                     if (dataSnapshot.hasChild(actualSearch)){
+                           Intent intent = new Intent(getApplicationContext(), DisplayInformation.class);
+                          // Intent intent = new Intent(getApplicationContext(), newActivity.class);
+                            intent.putExtra("key",actualSearch);
+
+                            startActivity(intent);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {            }
+                });
+
             }
         });
         mImageView.setOnClickListener(this);
@@ -101,7 +146,7 @@ public class AccountActitivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onClick(View view) {
                 saveImgToFirebase();
-
+                //recg();
                 //  识别模块
                 // if (valid)
                 //
@@ -110,7 +155,16 @@ public class AccountActitivity extends AppCompatActivity implements View.OnClick
 
     }
 
+    @IgnoreExtraProperties
+    public class Building {
+        public String name;
+        public String address;
 
+        public Building(String name, String address) {
+            this.name = name;
+            this.address = address;
+        }
+    }
     private void displayUsername() {
         Intent intent = getIntent();
         username = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
