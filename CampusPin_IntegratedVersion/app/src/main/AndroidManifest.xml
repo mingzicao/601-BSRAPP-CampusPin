@@ -23,6 +23,7 @@
             android:name=".EmailPasswordActivity"
             android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".DisplayInformation"></activity>
+        <activity android:name=".signUpActivity"></activity>
     </application>
 
 </manifest>

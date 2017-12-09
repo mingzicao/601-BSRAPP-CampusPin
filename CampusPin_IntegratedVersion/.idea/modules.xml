@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://C:\Users\Mark Shi\Documents\GitHub\601-BSRAPP-CampusPin\CampusPin\CampusPin.iml" filepath="C:\Users\Mark Shi\Documents\GitHub\601-BSRAPP-CampusPin\CampusPin\CampusPin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CampusPin1.iml" filepath="$PROJECT_DIR$/CampusPin1.iml" />
+      <module fileurl="file://C:\Users\Mark Shi\Documents\GitHub\601-BSRAPP-CampusPin\CampusPin_IntegratedVersion\CampusPin1.iml" filepath="C:\Users\Mark Shi\Documents\GitHub\601-BSRAPP-CampusPin\CampusPin_IntegratedVersion\CampusPin1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CampusPin_IntegratedVersion.iml" filepath="$PROJECT_DIR$/CampusPin_IntegratedVersion.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
