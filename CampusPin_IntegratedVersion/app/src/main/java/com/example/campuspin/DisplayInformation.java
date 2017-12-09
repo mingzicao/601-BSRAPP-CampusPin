@@ -131,16 +131,9 @@ public class DisplayInformation extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {            }
 
         });
-
-
     }
 
-
-
-
     public Bitmap getBitmapFromURL(String src) {
-
-
         try {
             Log.e("src",src);
             URL url = new URL(src);

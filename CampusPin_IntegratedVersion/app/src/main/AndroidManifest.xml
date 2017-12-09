@@ -21,12 +21,8 @@
         </activity>
         <activity
             android:name=".EmailPasswordActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".DisplayInformation" />
-        <activity
-            android:name=".signUpActivity"
-            android:label="@string/title_activity_sign_up"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".DisplayInformation"></activity>
     </application>
 
 </manifest>

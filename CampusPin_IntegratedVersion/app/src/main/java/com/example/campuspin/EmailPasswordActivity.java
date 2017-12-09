@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 
 public class EmailPasswordActivity extends AppCompatActivity {
     private EditText mEmailField;
@@ -32,8 +34,8 @@ public class EmailPasswordActivity extends AppCompatActivity {
     public String username;
     private String password;
     boolean valid = false;
-    private DatabaseReference myRef;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public DatabaseReference myRef;
+    public FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,41 +45,21 @@ public class EmailPasswordActivity extends AppCompatActivity {
         mEmailField = (EditText) findViewById(R.id.emailField);
         mPasswordField =  (EditText) findViewById(R.id.passwordField);
         mLoginBtn = (Button)findViewById(R.id.loginBtn);
+        myRef = database.getReference();
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startSignIn();
                 if (valid){
-                    myRef.child("currentUser").setValue(username);
+                    myRef.child("currentUser").setValue("Anonymous");
                     Intent intent1 = new Intent(EmailPasswordActivity.this,MainActivity.class);
                     intent1.putExtra("username", username);
                     startActivity(intent1);
                 } else {
                     Toast.makeText(EmailPasswordActivity.this, "Sign In Problem", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
-
-/*
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-               // System.out.println("I'm listener current user is  " + firebaseAuth.getCurrentUser().getEmail());
-                if (firebaseAuth.getCurrentUser() != null) {
-
-                      Intent intent1 = new Intent(MainActivity.this,  AccountActitivity.class);
-                      intent1.putExtra(EXTRA_MESSAGE, username);
-                    //  startActivity(intent1);
-                } else {
-
-                    System.out.println("I'm listener " + email);
-                }
-            }
-        };
-        mAuth.addAuthStateListener(mAuthListener);
-*/
     }
 
 
