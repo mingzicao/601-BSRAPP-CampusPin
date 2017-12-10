@@ -7,6 +7,30 @@ https://youtu.be/mnh9CaRLNgk
 
 https://youtu.be/WPbxhzRGw3E
 
+## How to use
+
+1.Install Android Studio with proper sdk and relevant tools. 
+
+2.Open our project.
+
+2.Connect your android phone with 'USB Debugging' open or create a new virtual device.
+
+3.Run app.
+
+4.With this steps, you can use most functions, except search by photo. Because the recognition module is implemented in server. 
+
+5.To run server, make sure you download all these 4 files in your folder:
+
+firepython.py
+
+npm-debug.log.222168760
+
+npm-debug.log.2805744207
+
+retrained_graph.pb
+
+You will need firebase and Tensorflow installed. Then run firepython.py.
+
 ## Features
 1.Login/Signup/Logout
 
@@ -29,9 +53,6 @@ You can review all of your search history with brief information and a preview p
 5.My Favorite(under development)
 
 You can add buildings into your Favorite List by click the red heard in the information page.
-
-## Recognition
-Most recent update of recognition is in the master branch. It includes all the files which could run in AWS, run in terminal. Just follow the readme inside, you can run the recognition module in different cases.
 
 ## Tests for Recognition Module
 
