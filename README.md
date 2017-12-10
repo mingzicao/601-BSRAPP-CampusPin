@@ -19,6 +19,7 @@ When you try to find some information of a given building, for example, you want
 3.Search by Photo
 
 The picture to upload can be either you find in your friends' twitter, facebook, or the one you took when you passing by a memorable building, which you want to know something about it. 
+
 You can simply press the "Choosing pictures" button, it firstly opens photo galary in your local position. After choosing one, and press "ok", it will be uploaded to the Firebase storage, then automatically giving back the actual url of the picture and update into our database.  After 5-10 seconds, you will see the information of the most similar building as you uploaded. If all the similarity rate is under certain number, you will get a "No Matching" message. Then you can choose to create a new building into our database by entering basic information about this building.
 
 4.Search History(under development)
@@ -37,14 +38,18 @@ Most recent update of recognition is in the master branch. It includes all the f
 https://youtu.be/l7IX_EygBNM
 
 Several tests were performed on the recognition module, and behaved basicly as we expect that each test matched exactly the correct building it should be. 
+
 In the single_test video, we firstly showed the path to train file which is named tf_file. 
+
 All the train set are stored inside. There are 3 training classes, Marsh Chapel(chapel), Photonics Center(pho) and Agganis Arena(aa). 
 Then, we open the test file, test 3 pictures-test1.jpg, test2.jpg and test3.jpg separately. The module outputs the percentage of the similarity of each building. The one gives the highest percentage of similarity is what we are looking for. 
 
 ## Current Challenges
 
 1.Enlarge the size of our training set using the uploaded pictures
+
 2.Enrich the information of our existing buildings by allowing users to add events to a given building
+
 3.Allow users to create new building into our database
 
 ## Built With
