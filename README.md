@@ -9,19 +9,24 @@ https://youtu.be/WPbxhzRGw3E
 
 ## Features
 1.Login/Signup/Logout
+
 Users are allow to login with google account or email/password method. After logged in, we will update our database to change your username from "Anonymous" to your nickname of Google account or the one you selected. You can also sign up account if you are new user. Log out if you want to change account or simply want to stop using the app.
 
 2.Search Bar
+
 When you try to find some information of a given building, for example, you want to know if there is printer inside Photonics Center, you can simply type "Photonics Center" in the textbox, and press "search". Then it will show you all the information you need. We can also track users' searching history for further use. Also we have simple spelling correction if you have wrong input.
 
 3.Search by Photo
+
 The picture to upload can be either you find in your friends' twitter, facebook, or the one you took when you passing by a memorable building, which you want to know something about it. 
 You can simply press the "Choosing pictures" button, it firstly opens photo galary in your local position. After choosing one, and press "ok", it will be uploaded to the Firebase storage, then automatically giving back the actual url of the picture and update into our database.  After 5-10 seconds, you will see the information of the most similar building as you uploaded. If all the similarity rate is under certain number, you will get a "No Matching" message. Then you can choose to create a new building into our database by entering basic information about this building.
 
 4.Search History(under development)
+
 You can review all of your search history with brief information and a preview picture. By clicking it, all information will show up.
 
 5.My Favorite(under development)
+
 You can add buildings into your Favorite List by click the red heard in the information page.
 
 ## Recognition
@@ -38,19 +43,9 @@ Then, we open the test file, test 3 pictures-test1.jpg, test2.jpg and test3.jpg 
 
 ## Current Challenges
 
-1.The size of our training set is still too small, so the precision of recognition is not high enough. The difficulty is to how to get enough pictures.
-
-2.For the building information part of database, we need to enrich the information of our existing buildings. We now have the building name, address, resources, and activities. We may want to add more properties for each building.
-
-3.Allow users to add events to a given building. For example, a career fair or a costume party.
-
-4.If the picture that user uploads don't match any of the buildings in the database, we may allow user to create new building into our database.
-
-5.For the 5 test recognition, when the number of the image is over 30, the module crashed. We are still trying to ﬁgure out what’s going on inside.
-
-6.Connect the recognition module into the android app.
-
-7.The picture that users upload should be used to enrich our training set for recognition module. But only if the numbers of newly uploaded pictures reach a given number, or a given percentage of all pictures in the training set. This is avoid doing too much repetitive job every time when a picture being uploaded.
+1.Enlarge the size of our training set using the uploaded pictures
+2.Enrich the information of our existing buildings by allowing users to add events to a given building
+3.Allow users to create new building into our database
 
 ## Built With
 
